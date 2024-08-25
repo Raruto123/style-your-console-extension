@@ -13,8 +13,8 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "color-your-console.helloWorld",
-      "title": "Hello World"
+      "command": "extension.insertStyledVoidConsoleLog",
+      "title": "Insert Styled Void Console"
     }]
   },
   "scripts": {

@@ -10,29 +10,19 @@ const vscode = require('vscode');
  */
 function activate(context) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "color-your-console" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('color-your-console.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from color your consoles!');
-		let panel = vscode.window.createWebviewPanel(
-			"dogCoding", 
-			"DOG CODING",
-			vscode.ViewColumn.One
-		);
-		panel.webview.html="<p style = 'color : red;'>I hate you</p>"
+	let disposable = vscode.commands.registerCommand("extension.insertStyledVoidConsoleLog", () => {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			const newLine = editor.document.lineAt(5);
+			const snippet = new vscode.SnippetString('\nconsole.log("%cYour text goes here", "Your CSS goes here")');
+			editor.insertSnippet(snippet);
+			vscode.window.showInformationMessage(`${newLine.lineNumber}`);
+		}
 	});
 
 	context.subscriptions.push(disposable);
+	
 }
-
 // This method is called when your extension is deactivated
 function deactivate() {}
 
