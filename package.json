@@ -15,7 +15,12 @@
     "commands": [{
       "command": "extension.insertStyledVoidConsoleLog",
       "title": "Insert Styled Void Console"
-    }]
+    },
+    {
+      "command": "extension.insertStyledWithVariableConsoleLog",
+      "title": "Insert Styled With Variable Console"
+    }
+  ]
   },
   "scripts": {
     "lint": "eslint .",
