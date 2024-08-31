@@ -19,6 +19,10 @@
     {
       "command": "extension.insertStyledWithVariableConsoleLog",
       "title": "Insert Styled With Variable Console"
+    },
+    {
+      "command": "extension.commentAllConsoleLogs",
+      "title": "Comment All Console Logs"
     }
   ]
   },
