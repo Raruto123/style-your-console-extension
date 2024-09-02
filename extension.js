@@ -15,6 +15,7 @@ function activate(context) {
 		if (editor) {
 			const snippet = new vscode.SnippetString('\nconsole.log("%cYour text goes here", "Your CSS goes here")\n');
 			// editor.insertSnippet(snippet, editor.selection.end.with(editor.selection.end.line + 1, 0));
+			// editor.insertSnippet(snippet, editor.selection.end);
 			editor.insertSnippet(snippet);
 		}
 	});
@@ -36,22 +37,26 @@ function activate(context) {
 			};
 		};
 	});
-	// Fonction pour commenter tous les console.log
-	vscode.commands.registerCommand('extension.commentAllConsoleLogs', function () {
-    const editor = vscode.window.activeTextEditor;
-    if (editor) {
-        const text = editor.document.getText();
-        const regex = /(\s*)console\.log\(`%cAny text you want.*\);/g;
-        const commentedText = text.replace(regex, "//$&");
 
-        editor.edit(editBuilder => {
-            const firstLine = editor.document.lineAt(0);
-            const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
-            const fullRange = new vscode.Range(firstLine.range.start, lastLine.range.end);
-            editBuilder.replace(fullRange, commentedText);
-        });
-    }
-});
+	vscode.commands.registerCommand('extension.commentAllConsoleLogs', function () {
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			const text = editor.document.getText();
+			const regex = /(console\.log\(`%cAny text you want.*\);)/g;
+			const commentedText = text.replace(regex, "// $1");
+	
+			editor.edit(editBuilder => {
+				const firstLine = editor.document.lineAt(0);
+				const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
+				const fullRange = new vscode.Range(firstLine.range.start, lastLine.range.end);
+				editBuilder.replace(fullRange, commentedText);
+			});
+		}
+	});
+
+
+
+
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disposableWithVariable);
