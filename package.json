@@ -12,19 +12,52 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "extension.insertStyledVoidConsoleLog",
-      "title": "Insert Styled Void Console"
-    },
-    {
-      "command": "extension.insertStyledWithVariableConsoleLog",
-      "title": "Insert Styled With Variable Console"
-    },
-    {
-      "command": "extension.commentAllConsoleLogs",
-      "title": "Comment All Console Logs"
-    }
-  ]
+    "commands" : [
+      {
+        "command": "extension.insertStyledVoidConsoleLog",
+        "title": "Insert Styled Void Console Log"
+      },
+      {
+        "command": "extension.insertStyledWithVariableConsoleLog",
+        "title": "Insert Styled With Variable Console"
+      },
+      {
+        "command": "extension.commentAllConsoleLogs",
+        "title": "Comment All Console Logs"
+      },
+      {
+        "command": "extension.deleteAllConsoleLogs",
+        "title": "Delete All Console Logs"
+      }, 
+      {
+        "command": "extension.uncommentAllConsoleLogs",
+        "title": "Uncomment All Console Logs"
+      }
+    ],
+    "keybindings" : [
+      {
+        "command": "extension.insertStyledVoidConsoleLog",
+        "key": "ctrl+alt+z",
+        "mac": "ctrl+alt+z",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.insertStyledWithVariableConsoleLog",
+        "title": "Insert Styled With Variable Console"
+      },
+      {
+        "command": "extension.commentAllConsoleLogs",
+        "title": "Comment All Console Logs"
+      },
+      {
+        "command": "extension.deleteAllConsoleLogs",
+        "title": "Delete All Console Logs"
+      }, 
+      {
+        "command": "extension.uncommentAllConsoleLogs",
+        "title": "Uncomment All Console Logs"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
