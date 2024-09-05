@@ -15,7 +15,7 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const snippet = new vscode.SnippetString(
-				'\nconsole.log("%cYour text goes here", "Your CSS goes here")\n'
+				'\nconsole.log(\`%c🎨 ⍨ \`, "Your CSS goes here")\n'
 			);
 			const position = editor.selection.active;
 			const document = editor.document;
@@ -33,7 +33,8 @@ function activate(context) {
 		}
 	});
 	//commande pour insérer un console.log() stylisé avec une variable
-	let disposableWithVariable = vscode.commands.registerCommand("extension.insertStyledWithVariableConsoleLog", () => {
+	let disposableWithVariable = vscode.commands.registerCommand(
+		"extension.insertStyledWithVariableConsoleLog", () => {
 		const editor= vscode.window.activeTextEditor;
 		if (editor) {
 			const selection = editor.selection;
@@ -43,57 +44,75 @@ function activate(context) {
 				const insertPosition = selection.end.with(selection.end.line + 1, 0); //Go back to the line
 
 				editor.edit((editBuilder) => {
-					editBuilder.insert(insertPosition, `\nconsole.log(\`%cAny text you want\${${text}}\`, "your css goes here");\n`)
+					editBuilder.insert(insertPosition, 
+						`\nconsole.log(\`%c🎨 ⍨ \${${text}}\`, "your css goes here");\n`
+					)
 				}).then(() => {
-					editor.selection = new vscode.Selection(insertPosition, insertPosition);//Place the cursors on a new line
+					editor.selection = new vscode.Selection(
+						insertPosition, insertPosition
+					);//Place the cursors on a new line
 				})
 			};
 		};
 	});
 
-	let disposableComment = vscode.commands.registerCommand('extension.commentAllConsoleLogs', function () {
+	let disposableComment = vscode.commands.registerCommand(
+		'extension.commentAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			const regex = /(console\.log\(`%cAny text you want.*\);)/g;
-			const commentedText = text.replace(regex, "// $1");
+			// const regex = /(console\.log\(`%c🎨 ⍨ .*\);)/g;
+			const regex = /console\.log\(`%c🎨 ⍨ .*\);/g;
+			// const commentedText = text.replace(regex, "// $1");
+			const commentedText = text.replace(regex, "// $&");
 	
 			editor.edit(editBuilder => {
 				const firstLine = editor.document.lineAt(0);
 				const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
-				const fullRange = new vscode.Range(firstLine.range.start, lastLine.range.end);
+				const fullRange = new vscode.Range(
+					firstLine.range.start, lastLine.range.end
+				);
 				editBuilder.replace(fullRange, commentedText);
 			});
 		}
 	});
 
-	let disposableUncomment = vscode.commands.registerCommand('extension.uncommentAllConsoleLogs', function () {
+	let disposableUncomment = vscode.commands.registerCommand(
+		'extension.uncommentAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			const regex = /\/\/\s*(console\.log\(`%cAny text you want.*\);)/g;
-			const uncommentedText = text.replace(regex, "$1");
+			// const regex = /\/\/\s*(console\.log\(`%cAny text you want.*\);)/g;
+			const regex = /\/\/\sconsole\.log\(`%c🎨 ⍨ .*\);/g;
+			// const uncommentedText = text.replace(regex, "$1");
+			const uncommentedText = text.replace(regex, match => match.replace("// ", ""));
 	
 			editor.edit(editBuilder => {
 				const firstLine = editor.document.lineAt(0);
 				const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
-				const fullRange = new vscode.Range(firstLine.range.start, lastLine.range.end);
+				const fullRange = new vscode.Range(
+					firstLine.range.start, lastLine.range.end);
 				editBuilder.replace(fullRange, uncommentedText);
 			});
 		}
 	});
 
-	let disposableDelete = vscode.commands.registerCommand('extension.deleteAllConsoleLogs', function () {
+	let disposableDelete = vscode.commands.registerCommand(
+		'extension.deleteAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			const regex = /console\.log\(`%cAny text you want.*\);/g;
+			// const regex = /console\.log\(`%cAny text you want.*\);/g;
+			const regex = /console\.log\(`%c🎨 ⍨ .*\);/g;
 			const deletedText = text.replace(regex, "");
+			// const deletedText = text.replace(regex, "");
+
 	
 			editor.edit(editBuilder => {
 				const firstLine = editor.document.lineAt(0);
 				const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
-				const fullRange = new vscode.Range(firstLine.range.start, lastLine.range.end);
+				const fullRange = new vscode.Range(
+					firstLine.range.start, lastLine.range.end);
 				editBuilder.replace(fullRange, deletedText);
 			});
 		}
