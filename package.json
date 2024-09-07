@@ -14,48 +14,56 @@
   "contributes": {
     "commands" : [
       {
-        "command": "extension.insertStyledVoidConsoleLog",
+        "command": "styleYourConsole.insertStyledVoidConsoleLog",
         "title": "Insert Styled Void Console Log"
       },
       {
-        "command": "extension.insertStyledWithVariableConsoleLog",
+        "command": "styleYourConsole.insertStyledWithVariableConsoleLog",
         "title": "Insert Styled With Variable Console"
       },
       {
-        "command": "extension.commentAllConsoleLogs",
+        "command": "styleYourConsole.commentAllConsoleLogs",
         "title": "Comment All Console Logs"
       },
       {
-        "command": "extension.deleteAllConsoleLogs",
+        "command": "styleYourConsole.deleteAllConsoleLogs",
         "title": "Delete All Console Logs"
       }, 
       {
-        "command": "extension.uncommentAllConsoleLogs",
+        "command": "styleYourConsole.uncommentAllConsoleLogs",
         "title": "Uncomment All Console Logs"
       }
     ],
     "keybindings" : [
       {
-        "command": "extension.insertStyledVoidConsoleLog",
+        "command": "styleYourConsole.insertStyledVoidConsoleLog",
         "key": "ctrl+alt+z",
         "mac": "ctrl+alt+z",
         "when": "editorTextFocus"
       },
       {
-        "command": "extension.insertStyledWithVariableConsoleLog",
-        "title": "Insert Styled With Variable Console"
+        "command": "styleYourConsole.insertStyledWithVariableConsoleLog",
+        "key": "ctrl+alt+l",
+        "mac": "ctrl+alt+l",
+        "when": "editorTextFocus"
       },
       {
-        "command": "extension.commentAllConsoleLogs",
-        "title": "Comment All Console Logs"
+        "command": "styleYourConsole.commentAllConsoleLogs",
+        "key": "shift+alt+c",
+        "mac": "shift+alt+c",
+        "when": "editorTextFocus"
       },
       {
-        "command": "extension.deleteAllConsoleLogs",
-        "title": "Delete All Console Logs"
+        "command": "styleYourConsole.deleteAllConsoleLogs",
+        "key": "shift+alt+d",
+        "mac": "shift+alt+d",
+        "when": "editorTextFocus"
       }, 
       {
-        "command": "extension.uncommentAllConsoleLogs",
-        "title": "Uncomment All Console Logs"
+        "command": "styleYourConsole.uncommentAllConsoleLogs",
+        "key": "shift+alt+u",
+        "mac": "shift+alt+u",
+        "when": "editorTextFocus"
       }
     ]
   },

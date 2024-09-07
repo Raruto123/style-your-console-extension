@@ -11,7 +11,7 @@ const vscode = require('vscode');
 function activate(context) {
 	//commande pour insérer un console.log() simple stylisé
 	let disposable = vscode.commands.registerCommand(
-		"extension.insertStyledVoidConsoleLog", () => {
+		"styleYourConsole.insertStyledVoidConsoleLog", () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const snippet = new vscode.SnippetString(
@@ -34,7 +34,7 @@ function activate(context) {
 	});
 	//commande pour insérer un console.log() stylisé avec une variable
 	let disposableWithVariable = vscode.commands.registerCommand(
-		"extension.insertStyledWithVariableConsoleLog", () => {
+		"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
 		const editor= vscode.window.activeTextEditor;
 		if (editor) {
 			const selection = editor.selection;
@@ -45,7 +45,7 @@ function activate(context) {
 
 				editor.edit((editBuilder) => {
 					editBuilder.insert(insertPosition, 
-						`\nconsole.log(\`%c🎨 ⍨ \${${text}}\`, "your css goes here");\n`
+						`\nconsole.log(\`%c🎨 ⍨ \${${text}}\`, "Your CSS goes here");\n`
 					)
 				}).then(() => {
 					editor.selection = new vscode.Selection(
@@ -57,7 +57,7 @@ function activate(context) {
 	});
 
 	let disposableComment = vscode.commands.registerCommand(
-		'extension.commentAllConsoleLogs', function () {
+		'styleYourConsole.commentAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
@@ -78,7 +78,7 @@ function activate(context) {
 	});
 
 	let disposableUncomment = vscode.commands.registerCommand(
-		'extension.uncommentAllConsoleLogs', function () {
+		'styleYourConsole.uncommentAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
@@ -98,7 +98,7 @@ function activate(context) {
 	});
 
 	let disposableDelete = vscode.commands.registerCommand(
-		'extension.deleteAllConsoleLogs', function () {
+		'styleYourConsole.deleteAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
