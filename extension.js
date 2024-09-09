@@ -9,13 +9,13 @@ const vscode = require('vscode');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	//commande pour insérer un console.log() simple stylisé
+	//command to insert a simple console.log()
 	let disposable = vscode.commands.registerCommand(
 		"styleYourConsole.insertStyledVoidConsoleLog", () => {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const snippet = new vscode.SnippetString(
-				'\nconsole.log(\`%c🎨 ⍨ \`, "Your CSS goes here")\n'
+				'\nconsole.log(\`%c🎨 ⍨ \`, "Your_CSS_Goes_Here")\n'
 			);
 			const position = editor.selection.active;
 			const document = editor.document;
@@ -23,16 +23,19 @@ function activate(context) {
 			let newPosition;
 	
 			if (position.line === document.lineCount - 1) {
-				// Si le curseur est sur la dernière ligne, on insère le snippet à la fin du document
-				newPosition = position.with(position.line, document.lineAt(position.line).range.end.character);
+				//If the cursor is on the last line, the snippet is inserted at the end of the document.
+				newPosition = position.with(
+					position.line, 
+					document.lineAt(position.line).range.end.character);
 			} else {
-				// Sinon, on l'ajoute à la ligne suivante
+				//Otherwise, we add it to the following line
 				newPosition = position.with(position.line + 1, 0);
 			}
 			editor.insertSnippet(snippet, newPosition);
 		}
 	});
-	//commande pour insérer un console.log() stylisé avec une variable
+
+	//ccommand to insert a console.log() with a variable
 	let disposableWithVariable = vscode.commands.registerCommand(
 		"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
 		const editor= vscode.window.activeTextEditor;
@@ -41,11 +44,12 @@ function activate(context) {
 			//To trim the spaces
 			let text = editor.document.getText(selection).trim();
 			if (text) {
-				const insertPosition = selection.end.with(selection.end.line + 1, 0); //Go back to the line
+				const insertPosition = selection.end.with(
+					selection.end.line + 1, 0); //Go back to the line
 
 				editor.edit((editBuilder) => {
 					editBuilder.insert(insertPosition, 
-						`\nconsole.log(\`%c🎨 ⍨ \${${text}}\`, "Your CSS goes here");\n`
+						`\nconsole.log(\`%c🎨 ⍨ \${${text}}\`, "Your_CSS_Goes_Here");\n`
 					)
 				}).then(() => {
 					editor.selection = new vscode.Selection(
@@ -56,6 +60,7 @@ function activate(context) {
 		};
 	});
 
+	//command to comment all console.log() with a variable
 	let disposableComment = vscode.commands.registerCommand(
 		'styleYourConsole.commentAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
@@ -67,16 +72,17 @@ function activate(context) {
 			const commentedText = text.replace(regex, "// $&");
 	
 			editor.edit(editBuilder => {
-				const firstLine = editor.document.lineAt(0);
+				const firstLine = editor.document.lineAt(0);//To get the first line of a document
 				const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
 				const fullRange = new vscode.Range(
 					firstLine.range.start, lastLine.range.end
-				);
+				);//To obtain the full range between the first and last line
 				editBuilder.replace(fullRange, commentedText);
 			});
 		}
 	});
 
+	//command to uncomment all console.log() with a variable
 	let disposableUncomment = vscode.commands.registerCommand(
 		'styleYourConsole.uncommentAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
@@ -85,7 +91,8 @@ function activate(context) {
 			// const regex = /\/\/\s*(console\.log\(`%cAny text you want.*\);)/g;
 			const regex = /\/\/\sconsole\.log\(`%c🎨 ⍨ .*\);/g;
 			// const uncommentedText = text.replace(regex, "$1");
-			const uncommentedText = text.replace(regex, match => match.replace("// ", ""));
+			const uncommentedText = text.replace(
+				regex, match => match.replace("// ", ""));
 	
 			editor.edit(editBuilder => {
 				const firstLine = editor.document.lineAt(0);
@@ -97,6 +104,7 @@ function activate(context) {
 		}
 	});
 
+	//command to delete all console.log() with a variable
 	let disposableDelete = vscode.commands.registerCommand(
 		'styleYourConsole.deleteAllConsoleLogs', function () {
 		const editor = vscode.window.activeTextEditor;
