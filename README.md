@@ -1,65 +1,33 @@
-# color-your-console README
+# Main Functionality
+Style Your Console makes debugging a lot clearer by letting you style what's written in the console.
 
-This is the README for your extension "color-your-console". After writing up a brief description, we recommend including the following sections.
+# Features
+## Primary features
 
-## Features
+### I) Insert a void console.log
+By void I mean a log message without a pre-determined variable. Useful if you just want to print a state message like "Success"/"Error" and you want to distinguish the two by color (Succes in blue, Error in red for example).
+To do this :
+- Pressing Ctrl + Alt + Z (Windows) or Control + Option + Z (Mac)
+The log message will be inserted in the next lines like the following : 
+`console.log(`%c🎨 ⍨ `, "Your_CSS_Goes_Here")`
+### II) Insert a log message with a variable
+A log message with a pre-determined variable. Perfect to track the value of something and with this extension you can track multiples variables and see through all of them easily by adding different CSS style on each.
+To do this :
+- Selecting the variable which is the subject of the debugging
+- Pressing Ctrl + Alt + L (Windows) or Control + Option + L (Mac)
+The log message will be inserted in the next lines like the following : 
+`console.log(`%c🎨 ⍨ ${variable}`, "Your_CSS_Goes_Here");`
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Secondary features
+All the following features here work only on the second primary feature (the one which insert with a variable). 
+Work in progress to make these features work with the other primary feature (the variable-less one).
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+### I) Comment all log messages, inserted by the extension in the current document
+To do this:
+- Pressing Shift + Alt + C (Windows) or Shift + Option + C (Mac)
+### II) Uncomment all log messages, inserted by the extension in the current document
+To do this:
+- Pressing Shift + Alt + U (Windows) or Shift + Option + U (Mac)
+### III) Delete all log messages, inserted by the extension in the current document
+To do this:
+- Pressing Shift + Alt + D (Windows) or Shift + Option + D (Mac)
