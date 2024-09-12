@@ -37,3 +37,7 @@ To do this:
 ### III) Delete all log messages, inserted by the extension in the current document
 To do this:
 - Pressing Shift + Alt + D (Windows) or Shift + Option + D (Mac)
+
+# Issues
+
+Please report any issues you encounter on the ([GitHub repository](https://github.com/Raruto123/style-your-console-extension/issues)).
