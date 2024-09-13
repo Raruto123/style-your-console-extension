@@ -40,4 +40,4 @@ To do this:
 
 # Issues
 
-Please report any issues you encounter on the ([GitHub repository](https://github.com/Raruto123/style-your-console-extension/issues)).
+Please report any issues you encounter on the [GitHub repository](https://github.com/Raruto123/style-your-console-extension/issues).
