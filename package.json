@@ -6,6 +6,10 @@
   "engines": {
     "vscode": "^1.92.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Raruto123/style-your-console-extension"
+  },
   "icon": "images/🎨.png",
   "categories": [
     "Other"
