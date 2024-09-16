@@ -17,7 +17,7 @@ function activate(context) {
 			const snippet = new vscode.SnippetString(
 				'\nconsole.log(\`%c🎨 ⍨ \`, "Your_CSS_Goes_Here")\n'
 			);
-			const position = editor.selection.active;
+			const position = editor.selection.active;  
 			const document = editor.document;
 	
 			let newPosition;
