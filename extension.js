@@ -15,8 +15,9 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const snippet = new vscode.SnippetString(
-				'\nconsole.log(\`%c🎨 ⍨ \`, "Your_CSS_Goes_Here")\n'
+				'\nconsole.log(\`%c🎨 ⍨ \`, "Your_CSS_Goes_Here")'
 			);
+			// '\nconsole.log(\`%c🎨 ⍨ \`, "Your_CSS_Goes_Here")\n'
 			const position = editor.selection.active;  
 			const document = editor.document;
 	
@@ -26,10 +27,15 @@ function activate(context) {
 				//If the cursor is on the last line, the snippet is inserted at the end of the document.
 				newPosition = position.with(
 					position.line, 
-					document.lineAt(position.line).range.end.character);
+					document.lineAt(position.line).range.end.character
+				);
 			} else {
 				//Otherwise, we add it to the following line
-				newPosition = position.with(position.line + 1, 0);
+				// newPosition = position.with(position.line + 1, 0);
+				newPosition = position.with(
+					position.line, 
+					document.lineAt(position.line).range.end.character
+				);
 			}
 			editor.insertSnippet(snippet, newPosition);
 		}
@@ -44,8 +50,12 @@ function activate(context) {
 			//To trim the spaces
 			let text = editor.document.getText(selection).trim();
 			if (text) {
-				const insertPosition = selection.end.with(
-					selection.end.line + 1, 0); //Go back to the line
+				// const insertPosition = selection.end.with(
+				// 	selection.end.line + 1, 0); //Go back to the line
+				const insertPosition = selection.active.with(
+					selection.active,
+					editor.document.lineAt().range.end.character
+				)//je dois faire revenir à la même indentation que le text
 
 				editor.edit((editBuilder) => {
 					editBuilder.insert(insertPosition, 
