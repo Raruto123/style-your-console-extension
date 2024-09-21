@@ -41,34 +41,67 @@ function activate(context) {
 		}
 	});
 
+	// let disposableWithVariable = vscode.commands.registerCommand(
+	// 	"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
+	// 	const editor= vscode.window.activeTextEditor;
+	// 	if (editor) {
+	// 		const selection = editor.selection;
+	// 		//To trim the spaces
+	// 		let text = editor.document.getText(selection).trim();
+	// 		if (text) {
+	// 			const insertPosition = selection.end.with(
+	// 				selection.end.line + 1,
+	// 				0
+	// 			); //Go back to the line
+
+	// 			editor.edit((editBuilder) => {
+	// 				editBuilder.insert(insertPosition, 
+	// 					`console.log(\`%c🎨 ⍨ \${${text}}\`, "Your_CSS_Goes_Here");\n`
+	// 				)
+	// 			})
+	// 			// .then(() => {
+	// 			// 	editor.selection = new vscode.Selection(
+	// 			// 		insertPosition, insertPosition
+	// 			// 	);//Place the cursors on a new line
+	// 		};
+	// 	};
+	// });
+
 	//ccommand to insert a console.log() with a variable
 	let disposableWithVariable = vscode.commands.registerCommand(
 		"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
-		const editor= vscode.window.activeTextEditor;
-		if (editor) {
-			const selection = editor.selection;
-			//To trim the spaces
-			let text = editor.document.getText(selection).trim();
-			if (text) {
-				// const insertPosition = selection.end.with(
-				// 	selection.end.line + 1, 0); //Go back to the line
-				const insertPosition = selection.active.with(
-					selection.active,
-					editor.document.lineAt().range.end.character
-				)//je dois faire revenir à la même indentation que le text
-
-				editor.edit((editBuilder) => {
-					editBuilder.insert(insertPosition, 
-						`\nconsole.log(\`%c🎨 ⍨ \${${text}}\`, "Your_CSS_Goes_Here");\n`
-					)
-				}).then(() => {
-					editor.selection = new vscode.Selection(
-						insertPosition, insertPosition
-					);//Place the cursors on a new line
-				})
-			};
-		};
-	});
+			const editor = vscode.window.activeTextEditor;
+			if (editor) {
+				const selection = editor.selection;
+				// Pour supprimer les espaces inutiles
+				let text = editor.document.getText(selection).trim();
+				if (text) {
+					// Obtenir le numéro de ligne où se termine la sélection
+					const lineNumber = selection.end.line;
+					// Récupérer le texte de cette ligne
+					const lineText = editor.document.lineAt(lineNumber).text;
+					// Extraire l'indentation (espaces ou tabulations) en début de ligne
+					const leadingWhitespace = lineText.match(/^\s*/)[0];
+	
+					// Position où insérer le console.log (ligne suivante)
+					const insertPosition = new vscode.Position(lineNumber + 1, 0);
+	
+					// Préparer la ligne de console.log avec la bonne indentation
+					const consoleLogLine = leadingWhitespace + `console.log(\`%c🎨 ⍨ \${${text}}\`, "Your_CSS_Goes_Here");\n`;
+	
+					editor.edit((editBuilder) => {
+						editBuilder.insert(insertPosition, consoleLogLine);
+					});
+					// Si vous souhaitez déplacer le curseur à la nouvelle ligne, vous pouvez décommenter le code ci-dessous
+					// .then(() => {
+					//     editor.selection = new vscode.Selection(
+					//         insertPosition, insertPosition
+					//     ); // Place le curseur sur la nouvelle ligne
+					// });
+				}
+			}
+		}
+	);
 
 	//command to comment all console.log() with a variable
 	let disposableComment = vscode.commands.registerCommand(
