@@ -67,7 +67,42 @@ function activate(context) {
 	// 	};
 	// });
 
-	//ccommand to insert a console.log() with a variable
+	// //ccommand to insert a console.log() with a variable
+	// let disposableWithVariable = vscode.commands.registerCommand(
+	// 	"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
+	// 		const editor = vscode.window.activeTextEditor;
+	// 		if (editor) {
+	// 			const selection = editor.selection;
+	// 			// Pour supprimer les espaces inutiles
+	// 			let text = editor.document.getText(selection).trim();
+	// 			if (text) {
+	// 				// Obtenir le numéro de ligne où se termine la sélection
+	// 				const lineNumber = selection.end.line;
+	// 				// Récupérer le texte de cette ligne
+	// 				const lineText = editor.document.lineAt(lineNumber).text;
+	// 				// Extraire l'indentation (espaces ou tabulations) en début de ligne
+	// 				const leadingWhitespace = lineText.match(/^\s*/)[0];
+	
+	// 				// Position où insérer le console.log (ligne suivante)
+	// 				const insertPosition = new vscode.Position(lineNumber + 1, 0);
+
+	// 				// Préparer la ligne de console.log avec la bonne indentation
+	// 				const consoleLogLine = leadingWhitespace + `console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");\n`;
+	
+	// 				editor.edit((editBuilder) => {
+	// 					editBuilder.insert(insertPosition, consoleLogLine);
+	// 				});
+	// 				// Si vous souhaitez déplacer le curseur à la nouvelle ligne, vous pouvez décommenter le code ci-dessous
+	// 				// .then(() => {
+	// 				//     editor.selection = new vscode.Selection(
+	// 				//         insertPosition, insertPosition
+	// 				//     ); // Place le curseur sur la nouvelle ligne
+	// 				// });
+	// 			}
+	// 		}
+	// 	}
+	// );
+
 	let disposableWithVariable = vscode.commands.registerCommand(
 		"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
 			const editor = vscode.window.activeTextEditor;
@@ -83,25 +118,20 @@ function activate(context) {
 					// Extraire l'indentation (espaces ou tabulations) en début de ligne
 					const leadingWhitespace = lineText.match(/^\s*/)[0];
 	
-					// Position où insérer le console.log (ligne suivante)
-					const insertPosition = new vscode.Position(lineNumber + 1, 0);
-
-					// Préparer la ligne de console.log avec la bonne indentation
-					const consoleLogLine = leadingWhitespace + `console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");\n`;
+					// Position où insérer le console.log (à la fin de la ligne actuelle)
+					const lineEndPosition = editor.document.lineAt(lineNumber).range.end;
+	
+					// Préparer la ligne de console.log avec un saut de ligne et la bonne indentation
+					const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");`;
 	
 					editor.edit((editBuilder) => {
-						editBuilder.insert(insertPosition, consoleLogLine);
+						editBuilder.insert(lineEndPosition, consoleLogLine);
 					});
-					// Si vous souhaitez déplacer le curseur à la nouvelle ligne, vous pouvez décommenter le code ci-dessous
-					// .then(() => {
-					//     editor.selection = new vscode.Selection(
-					//         insertPosition, insertPosition
-					//     ); // Place le curseur sur la nouvelle ligne
-					// });
 				}
 			}
 		}
 	);
+
 
 	//command to comment all console.log() with a variable
 	let disposableComment = vscode.commands.registerCommand(
