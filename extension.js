@@ -85,9 +85,9 @@ function activate(context) {
 	
 					// Position où insérer le console.log (ligne suivante)
 					const insertPosition = new vscode.Position(lineNumber + 1, 0);
-	
+
 					// Préparer la ligne de console.log avec la bonne indentation
-					const consoleLogLine = leadingWhitespace + `console.log(\`%c🎨 ⍨ \${${text}}\`, "Your_CSS_Goes_Here");\n`;
+					const consoleLogLine = leadingWhitespace + `console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");\n`;
 	
 					editor.edit((editBuilder) => {
 						editBuilder.insert(insertPosition, consoleLogLine);
