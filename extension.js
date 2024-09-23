@@ -109,10 +109,8 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			// const regex = /(console\.log\(`%c🎨 ⍨ .*\);)/g;
-			const regex = /console\.log\(`%c🎨 ⍨ .*\);/g;
-			// const commentedText = text.replace(regex, "// $1");
-			const commentedText = text.replace(regex, "// $&");
+			const regex = /^(\s*)(\/\/\s*)?(console\.log\(`%c🎨 ⍨ .*\);)/gm;
+			const commentedText = text.replace(regex, "$1// $3" )
 	
 			editor.edit(editBuilder => {
 				const firstLine = editor.document.lineAt(0);//To get the first line of a document
@@ -131,11 +129,9 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			// const regex = /\/\/\s*(console\.log\(`%cAny text you want.*\);)/g;
-			const regex = /\/\/\sconsole\.log\(`%c🎨 ⍨ .*\);/g;
-			// const uncommentedText = text.replace(regex, "$1");
-			const uncommentedText = text.replace(
-				regex, match => match.replace("// ", ""));
+			const regex = /^(\s*\/\/\s*)+(console\.log\(`%c🎨 ⍨ .*\);)/gm;
+			// const uncommentedText = text.replace(regex, " ");
+			const uncommentedText = text.replace(regex, "$2")
 	
 			editor.edit(editBuilder => {
 				const firstLine = editor.document.lineAt(0);
@@ -153,8 +149,9 @@ function activate(context) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const text = editor.document.getText();
-			// const regex = /console\.log\(`%cAny text you want.*\);/g;
-			const regex = /console\.log\(`%c🎨 ⍨ .*\);/g;
+			// const regex = /console\.log\(`%c🎨 ⍨ .*\);/g;
+			// Expression régulière améliorée
+			const regex = /^[\t ]*(\/\/\s*)*console\.log\(`%c🎨 ⍨ .*?\);\s*$/gm;
 			const deletedText = text.replace(regex, "");
 			// const deletedText = text.replace(regex, "");
 
