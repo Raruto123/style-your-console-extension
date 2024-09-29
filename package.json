@@ -3,6 +3,7 @@
   "displayName": "Style Your Console",
   "description": "an extension to let you style what's written in the browser's console so you can distinguish properly console.log statements",
   "version": "0.1.0",
+  "publisher": "Hassib",
   "engines": {
     "vscode": "^1.92.0"
   },
@@ -10,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/Raruto123/style-your-console-extension"
   },
-  "icon": "images/🎨.png",
+  "icon": "images/styleyourconsole.png",
   "categories": [
     "Other"
   ],

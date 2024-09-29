@@ -22,7 +22,7 @@ To do this :
 
 The log message will be inserted in the next lines like the following : 
 
-`console.log(%c🎨 ⍨ ${variable}, "Your_CSS_Goes_Here");`
+`console.log(%c🎨 ⍨ ${variable} ⍨ ${variableName}, "Your_CSS_Goes_Here");`
 
 ## Secondary features
 All the following features here work only on the second primary feature (the one which insert with a variable). 

@@ -122,7 +122,8 @@ function activate(context) {
 					const lineEndPosition = editor.document.lineAt(lineNumber).range.end;
 	
 					// Préparer la ligne de console.log avec un saut de ligne et la bonne indentation
-					const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");`;
+					// const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");`;
+					const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ ${text}\`, "Your_CSS_Goes_Here", ${text});`
 	
 					editor.edit((editBuilder) => {
 						editBuilder.insert(lineEndPosition, consoleLogLine);
