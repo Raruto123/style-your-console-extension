@@ -104,13 +104,29 @@ function activate(context) {
 	// );
 
 	let disposableWithVariable = vscode.commands.registerCommand(
-		"styleYourConsole.insertStyledWithVariableConsoleLog", () => {
+		"styleYourConsole.insertStyledWithVariableConsoleLog", async() => {
 			const editor = vscode.window.activeTextEditor;
 			if (editor) {
 				const selection = editor.selection;
 				// Pour supprimer les espaces inutiles
 				let text = editor.document.getText(selection).trim();
 				if (text) {
+					//Récuperer les styles prédéfinis
+					const config = vscode.workspace.getConfiguration(
+						"styleYourConsole"
+					);
+					const predefinedStyles = config.get("predefinedStyles");
+					const styleNames = Object.keys(predefinedStyles);
+
+					//Demander à l'utilisateur de choisir un style
+					const chosenStyleName = await vscode.window.showQuickPick(
+						styleNames, {
+							placeHolder : "Choisissez un style prédéfini"
+						}
+					);
+
+					//Utiliser le style choisi ou le style par défaut
+					const chosenStyle = predefinedStyles[chosenStyleName] || predefinedStyles["default"];
 					// Obtenir le numéro de ligne où se termine la sélection
 					const lineNumber = selection.end.line;
 					// Récupérer le texte de cette ligne
@@ -123,7 +139,9 @@ function activate(context) {
 	
 					// Préparer la ligne de console.log avec un saut de ligne et la bonne indentation
 					// const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ \${${text}} ⍨ ${text}\`, "Your_CSS_Goes_Here");`;
-					const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ ${text}\`, "Your_CSS_Goes_Here", ${text});`
+					// const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ ${text}\`, "Your_CSS_Goes_Here", ${text});`
+					const consoleLogLine = `\n${leadingWhitespace}console.log(\`%c🎨 ⍨ ${text}\`, "${chosenStyle}", ${text});`
+
 	
 					editor.edit((editBuilder) => {
 						editBuilder.insert(lineEndPosition, consoleLogLine);

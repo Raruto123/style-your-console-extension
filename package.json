@@ -18,6 +18,28 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
+    "configuration" : {
+      "type" : "object",
+      "title": "Style Your Console Settings",
+      "properties": {
+        "styleYourConsole.predefinedStyles" : {
+          "type" : "object",
+          "default" : {
+            "default" : "Your_CSS_Goes_Here",
+            "test" : "color:yellow; font-weight:bold",
+            "warning" : "color:yellowgreen; font-weight:bold",
+            "danger" : "color:orange; font-weight:bold",
+            "success" : "color:blue; font-weight:bold",
+            "error" : "color:red; font-weight:bold",
+            "information" : "color:green; font-weight:bold",
+            "object" : "color:pink; font-weight:bold",
+            "function" : "color:violet; font-weight:bold",
+            "fetchData" : "color:beige; font-weight:bold"
+          },
+          "description": "Définissez vos styles prédéfinis pour le console.log avec variable"
+        }
+      }
+    },
     "commands" : [
       {
         "command": "styleYourConsole.insertStyledVoidConsoleLog",
