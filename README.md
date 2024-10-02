@@ -19,10 +19,11 @@ To do this :
 
 - Selecting the variable which is the subject of the debugging
 - Pressing Ctrl + Alt + L (Windows) or Control + Option + L (Mac)
+- Select your desired predefined style
 
 The log message will be inserted in the next lines like the following : 
 
-`console.log(%c🎨 ⍨ ${variable} ⍨ ${variableName}, "Your_CSS_Goes_Here");`
+`console.log(%c🎨 ⍨ ${variableName}, "Your_CSS_Goes_Here", variable);`
 
 ## Secondary features
 All the following features here work only on the second primary feature (the one which insert with a variable). 
